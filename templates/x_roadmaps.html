@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% block title %}Career roadmaps{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><span class="overline">CAREER ROADMAPS</span><h1>See the path <em>before you choose.</em></h1><p>Stage-by-stage guides from Class 8 to your first job, with entrance routes and skills.</p></div>
+<form class="x-form x-noprint" method="get" style="max-width:480px;margin-bottom:24px"><label for="q">Search careers</label><input id="q" name="q" value="{{ q }}" placeholder="e.g. doctor, design, law"></form>
+{% if careers %}<div class="x-grid">{% for c in careers %}<a class="x-card" href="/roadmaps/{{ c.slug }}"><h3>{{ c.title }}</h3><p>{{ c.summary }}</p><p style="margin-top:12px">{% for t in c.types %}<span class="x-chip">{{ TYPES[t][0] }}</span>{% endfor %}</p></a>{% endfor %}</div>
+{% else %}<div class="x-card"><h3>No roadmap matches “{{ q }}”.</h3><p>Try a different word or <a class="text-link" href="/roadmaps">see all roadmaps</a>.</p></div>{% endif %}</div></section>{% endblock %}

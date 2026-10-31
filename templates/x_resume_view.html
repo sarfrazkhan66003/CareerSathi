@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block title %}Your resume{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><p class="x-noprint"><button class="btn btn-dark btn-sm" data-print type="button">Print / Save as PDF</button> <a class="btn btn-outline btn-sm" href="/resume-builder">Edit</a></p>
+<article class="resume"><h1>{{ r.name }}</h1><p>{{ [r.email, r.phone, r.city]|select|join(' · ') }}</p>
+{% if r.objective %}<h2>Objective</h2><p>{{ r.objective }}</p>{% endif %}
+{% if r.education %}<h2>Education</h2><ul>{% for l in r.education %}<li>{{ l }}</li>{% endfor %}</ul>{% endif %}
+{% if r.skills %}<h2>Skills</h2><p>{{ r.skills|join(' · ') }}</p>{% endif %}
+{% if r.projects %}<h2>Projects &amp; Internships</h2><ul>{% for l in r.projects %}<li>{{ l }}</li>{% endfor %}</ul>{% endif %}
+{% if r.achievements %}<h2>Achievements</h2><ul>{% for l in r.achievements %}<li>{{ l }}</li>{% endfor %}</ul>{% endif %}</article></div></section>{% endblock %}

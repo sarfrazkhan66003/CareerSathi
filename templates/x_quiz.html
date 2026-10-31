@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block title %}Career Compass{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><span class="overline">CAREER COMPASS</span><h1>What kind of work <em>fits you?</em></h1>
+<p>Answer 24 statements honestly (about 4 minutes). There are no right or wrong answers. No login needed; sign in to save points and results to your account.</p></div>
+<div class="x-progress"><div><i id="xProg"></i></div><small id="xProgTxt" aria-live="polite">0 of 24 answered</small></div>
+<form id="quizForm" method="post" action="/career-quiz"><input type="hidden" name="csrf_token" value="{{ csrf }}">
+{% for i,q in questions %}<fieldset class="x-q"><legend><span class="n">{{ i+1 }}.</span>{{ q[1] }}</legend><div class="x-scale">
+{% for v,l in [(1,'Not me'),(2,'A little'),(3,'Sometimes'),(4,'Mostly'),(5,'Very much')] %}<label><input type="radio" name="q{{ i }}" value="{{ v }}" required><span>{{ l }}</span></label>{% endfor %}</div></fieldset>{% endfor %}
+<button id="quizSubmit" class="btn btn-primary btn-lg" disabled>See my results ↗</button></form>
+<p class="x-note">This is an interest explorer based on the widely used RIASEC model idea. It is not a clinical psychometric test.</p></div></section>{% endblock %}

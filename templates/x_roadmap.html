@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block title %}{{ c.title }} roadmap{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><a class="text-link" href="/roadmaps">← All roadmaps</a><div class="x-head" style="margin-top:14px"><span class="overline">ROADMAP</span><h1>{{ c.title }}</h1><p>{{ c.summary }}</p><p>{% for t in c.types %}<span class="x-chip">{{ TYPES[t][0] }}</span>{% endfor %}</p></div>
+<div class="x-grid two"><div class="x-card"><h3>Step by step</h3><ol class="x-steps">{% for s,t in c.steps %}<li><b>{{ s }}</b>{{ t }}</li>{% endfor %}</ol></div>
+<div><div class="x-card" style="margin-bottom:18px"><h3>Best-fit stream</h3><p>{{ c.stream }}</p></div><div class="x-card" style="margin-bottom:18px"><h3>Entrance routes</h3><ul>{% for e in c.exams %}<li>{{ e }}</li>{% endfor %}</ul></div>
+<div class="x-card" style="margin-bottom:18px"><h3>Skills to build</h3><p>{% for s in c.skills %}<span class="x-chip">{{ s }}</span>{% endfor %}</p></div>
+{% if c.links %}<div class="x-card"><h3>Official sources</h3>{% for n,u in c.links %}<p><a class="text-link" href="{{ u }}" target="_blank" rel="noopener noreferrer">{{ n }} ↗</a></p>{% endfor %}</div>{% endif %}</div></div>
+<p class="x-note">Rules, exams and dates change. Always confirm on the official website. <a class="text-link" href="/match?interests={{ c.slug.replace('-',' ') }}">Find a mentor in this field ↗</a></p></div></section>{% endblock %}

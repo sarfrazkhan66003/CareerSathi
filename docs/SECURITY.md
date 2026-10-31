@@ -1,0 +1,2 @@
+# Security
+CSRF token on all POST (header `X-CSRF` for the assistant JSON endpoint). Role checks via `must_login`. Input length-capped. Jinja autoescape on (no |safe on user data). Parent sees only students who shared a code; codes are random 8-char, regenerable. Leaderboard opt-in. No secrets in repo (.env.example). Rate-limit assistant per session (30 req/10 min). Known gaps (unchanged from v10): email verification, MFA, guardian consent flow, payment gateway.

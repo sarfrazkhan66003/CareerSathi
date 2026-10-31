@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block title %}Plans &amp; pricing{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><span class="overline">PLANS</span><h1>Affordable by <em>design.</em></h1><p>Core guidance stays free. Paid plans unlock deeper tools at ₹99–₹299 per year.</p></div>
+<div class="x-grid">{% for key,p in PLANS.items() %}<div class="x-card x-plan {{ 'hot' if key=='plus' }}"><span class="x-chip {{ 'dark' if key=='plus' }}">{{ p.tag }}</span><h3>{{ p.name }}</h3><div class="x-price">{% if p.price %}₹{{ p.price }}<small> / year</small>{% else %}Free{% endif %}</div>
+<ul>{% for f in p.features %}<li>{{ f }}</li>{% endfor %}</ul>
+{% if current==key %}<p><span class="x-chip dark">Your current plan</span></p>
+{% elif key=='free' %}{% elif not user %}<a class="btn btn-dark" href="/login">Log in to request ↗</a>
+{% elif pending %}<p><span class="x-chip">Request pending: {{ pending|capitalize }}</span></p>
+{% else %}<form method="post" action="/pricing/request" class="x-form"><input type="hidden" name="csrf_token" value="{{ csrf }}"><input type="hidden" name="plan" value="{{ key }}"><input name="note" maxlength="300" placeholder="Phone / preferred contact time (optional)" aria-label="Contact note"><button class="btn {{ 'btn-primary' if key=='plus' else 'btn-dark' }}">Request {{ p.name }} ↗</button></form>{% endif %}</div>{% endfor %}</div>
+<p class="x-note"><b>How payment works today:</b> an online gateway is not connected yet. Requesting a plan does not charge you; our team contacts you and activates the plan after confirming payment manually. Schools can ask about seminar pricing on the <a class="text-link" href="/partners">Partners page</a>.</p></div></section>{% endblock %}
