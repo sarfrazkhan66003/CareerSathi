@@ -1,0 +1,72 @@
+{% extends 'base.html' %}{% block title %}{{ cfg.title }}{% endblock %}{% block content %}
+<style id="assess-css">
+.aw{max-width:820px;margin:0 auto}
+.aw-top{position:sticky;top:0;z-index:5;background:var(--paper);padding:12px 0 10px;border-bottom:1px solid #eeeaf8}
+.aw-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;font-weight:700;font-size:14px}
+.aw-bar{height:8px;background:#ece9f7;border-radius:99px;overflow:hidden;margin:8px 0}.aw-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#7060cb,#a48bed);border-radius:99px;transition:width .25s}
+.aw-pal{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.aw-pal button{width:32px;height:32px;border-radius:9px;border:1px solid #d9d4ee;background:#fff;font:700 12px var(--font);color:#3d3c52;cursor:pointer}
+.aw-pal button.done{background:var(--lavender);border-color:#b9aef0;color:#4a3fb0}.aw-pal button.cur{background:var(--purple);border-color:var(--purple);color:#fff}.aw-pal button:disabled{opacity:.45;cursor:not-allowed}
+.aw-card{border:1px solid #e7e5f0;border-radius:20px;background:#fff;padding:26px;margin:18px 0}
+.aw-card legend{font-size:1.15rem;font-weight:700;line-height:1.45;padding:0;margin-bottom:6px}.aw-chip{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:var(--lavender);color:#5243b6;border-radius:99px;padding:4px 11px;margin-bottom:12px}
+.aw-opt{display:flex;gap:12px;align-items:flex-start;padding:13px 15px;border:1.5px solid #ddd8ef;border-radius:14px;margin-top:10px;cursor:pointer;background:#fff}
+.aw-opt:hover{border-color:var(--purple)}.aw-opt input{margin:3px 0 0;flex:none;width:auto;accent-color:var(--purple)}.aw-opt:has(input:checked){border-color:var(--purple);background:#f6f3ff}
+.aw-scale{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.aw-scale label{flex:1 1 56px;cursor:pointer}.aw-scale input{position:absolute;opacity:0}.aw-scale span{display:block;text-align:center;padding:12px 6px;border:1.5px solid #ddd8ef;border-radius:12px;font-weight:700;background:#fff}.aw-scale input:checked+span{background:var(--purple);border-color:var(--purple);color:#fff}.aw-scale input:focus-visible+span{outline:3px solid #b9aef0}
+.aw-nav{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:30px}
+.aw-hint{color:var(--muted);font-size:13.5px}
+.aw-err{border-left:5px solid #c2410c;background:#fff1ea;color:#7c2d0b;border-radius:0 14px 14px 0;padding:14px 18px;margin:16px 0;font-weight:600}
+.aw [hidden]{display:none!important}
+.aw-card legend{float:left;width:100%}.aw-card legend+*{clear:both}
+.aw-all .aw-card{display:block}
+[data-theme=dark] .aw-card,[data-theme=dark] .aw-opt,[data-theme=dark] .aw-scale span,[data-theme=dark] .aw-pal button{background:#1f2233;border-color:#33374d;color:#eceaf7}[data-theme=dark] .aw-top{background:#15172a}
+</style>
+<section class="x-wrap"><div class="container aw">
+<div class="x-head"><span class="overline">ASSESSMENT</span><h1>{{ cfg.title }}</h1>
+<p>Answer one question at a time. You can only move to the next question after answering the current one, and your score and stream are shown only after you finish every question. There is no negative marking.</p></div>
+{% if incomplete %}<div class="aw-err" role="alert">{{ incomplete }}</div>{% endif %}
+<form id="assessForm" method="post" data-minutes="{{ cfg.minutes }}" novalidate><input type="hidden" name="csrf_token" value="{{ csrf }}">
+<div class="aw-top"><div class="aw-row"><span id="awLabel" aria-live="polite">{{ qs|length + interest|length }} questions</span><span id="aTimer" class="aw-hint">⏱</span></div>
+<div class="aw-bar" role="progressbar" aria-label="Progress"><i id="awBar"></i></div><div class="aw-pal" id="awPal" hidden></div></div>
+{% set total = qs|length %}
+{% for qid,sec,q,opts in qs %}<fieldset class="aw-card" data-step data-kind="{{ SEC[sec] }}" {% if prefill is defined and prefill and prefill.get('q_' ~ qid) is none %}data-missing="1"{% endif %}><legend>{{ loop.index }}. {{ q }}</legend><span class="aw-chip">{{ SEC[sec] }}</span>
+{% for o in opts %}<label class="aw-opt"><input type="radio" name="q_{{ qid }}" value="{{ loop.index0 }}" {{ 'checked' if prefill and prefill.get('q_' ~ qid)==(loop.index0|string) }}><span>{{ o }}</span></label>{% endfor %}</fieldset>{% endfor %}
+{% for code,txt in interest %}{% set n = loop.index0 %}<fieldset class="aw-card" data-step data-kind="Your interests"><legend>{{ total + loop.index }}. {{ txt }}</legend><span class="aw-chip">About your interests</span><p class="aw-hint" style="margin:0">1 = not me, 5 = very much me.</p>
+<div class="aw-scale">{% for v in [1,2,3,4,5] %}<label><input type="radio" name="i{{ n }}" value="{{ v }}" {{ 'checked' if prefill and prefill.get('i' ~ n)==(v|string) }}><span>{{ v }}</span></label>{% endfor %}</div></fieldset>{% endfor %}
+<div class="aw-nav"><button type="button" id="awPrev" class="btn btn-outline" hidden>← Previous</button><span class="aw-hint" id="awNote"></span>
+<button type="button" id="awNext" class="btn btn-primary" hidden disabled>Next →</button><button type="submit" id="awSubmit" class="btn btn-primary btn-lg">{{ t('Submit answers') }} ↗</button></div>
+</form></div></section>
+<script>
+(function(){
+ var f=document.getElementById('assessForm'); if(!f) return;
+ var steps=[].slice.call(f.querySelectorAll('fieldset[data-step]')), total=steps.length, cur=0;
+ var prev=document.getElementById('awPrev'), next=document.getElementById('awNext'), sub=document.getElementById('awSubmit'), bar=document.getElementById('awBar'),
+     lab=document.getElementById('awLabel'), pal=document.getElementById('awPal'), note=document.getElementById('awNote'), tm=document.getElementById('aTimer');
+ function ans(i){return !!steps[i].querySelector('input:checked');}
+ function open(){for(var i=0;i<total;i++) if(!ans(i)) return i; return total;}
+ function done(){var n=0;for(var i=0;i<total;i++) if(ans(i)) n++;return n;}
+ var btns=steps.map(function(_,i){var b=document.createElement('button');b.type='button';b.textContent=i+1;b.setAttribute('aria-label','Question '+(i+1));b.addEventListener('click',function(){if(i<=open()) show(i);});pal.appendChild(b);return b;});
+ pal.hidden=false; prev.hidden=false; next.hidden=false;
+ function show(i){
+  cur=Math.max(0,Math.min(i,total-1));
+  steps.forEach(function(s,k){s.hidden=(k!==cur);});
+  var d=done(), o=open();
+  bar.style.width=(d/total*100)+'%';
+  lab.textContent='Question '+(cur+1)+' of '+total+' · '+steps[cur].getAttribute('data-kind')+' · '+d+' answered';
+  prev.style.visibility=cur===0?'hidden':'visible';
+  var last=cur===total-1;
+  next.hidden=last; sub.hidden=!last;
+  next.disabled=!ans(cur); sub.disabled=(d<total);
+  note.textContent=!ans(cur)?'Choose an answer to continue.':(last&&d<total?'Answer every question to submit.':'');
+  btns.forEach(function(b,k){b.className=(k===cur?'cur':(ans(k)?'done':''));b.disabled=k>o;});
+  var lg=steps[cur].querySelector('legend'); if(lg){lg.setAttribute('tabindex','-1');}
+ }
+ f.addEventListener('change',function(){show(cur);});
+ next.addEventListener('click',function(){if(ans(cur)) show(cur+1);});
+ prev.addEventListener('click',function(){show(cur-1);});
+ f.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.type!=='submit'){e.preventDefault();if(!next.hidden&&!next.disabled) show(cur+1);}});
+ f.addEventListener('submit',function(e){if(done()<total){e.preventDefault();show(open());}});
+ show(Math.min(open(),total-1));
+ var left=parseInt(f.dataset.minutes||'30',10)*60;
+ (function tick(){var m=Math.floor(left/60),s=left%60;tm.textContent='⏱ '+m+':'+String(s).padStart(2,'0');if(left--<=0){tm.textContent='⏱ Time is over. Please finish the remaining questions to see your score.';return;}setTimeout(tick,1000);})();
+})();
+</script>{% endblock %}

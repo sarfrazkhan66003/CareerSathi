@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block title %}Study abroad &amp; scholarships{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><span class="overline">STUDY ABROAD &amp; SCHOLARSHIPS</span><h1>Plan global study <em>the safe way.</em></h1><p>A realistic timeline and checklist. We do not sell admissions or visas; use official university and embassy sites.</p></div>
+<div class="x-grid two"><div class="x-card"><h3>Timeline</h3><ol class="x-steps">{% for w,t in steps %}<li><b>{{ w }}</b>{{ t }}</li>{% endfor %}</ol></div>
+<div class="x-card x-check" data-check-key="abroad"><h3>Your checklist</h3><p>Ticks are saved only in this browser.</p>{% for c in check %}<label><input type="checkbox"><span>{{ c }}</span></label>{% endfor %}</div></div>
+<div class="x-card" style="margin-top:18px"><h3>Official scholarship &amp; education portals</h3>{% for n,u,d in sch %}<p><a class="text-link" href="{{ u }}" target="_blank" rel="noopener noreferrer">{{ n }} ↗</a> · {{ d }}</p>{% endfor %}</div>
+<p class="x-note">Warning: never pay an agent for a “guaranteed” scholarship, admission or visa. See also <a class="text-link" href="/explore/resource">Scholarships &amp; financial aid checklist ↗</a>.</p></div></section>{% endblock %}

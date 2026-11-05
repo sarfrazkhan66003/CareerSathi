@@ -1,0 +1,11 @@
+{% extends 'base.html' %}{% block title %}Resume builder{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><span class="overline">RESUME BUILDER</span><h1>A clean resume in <em>two minutes.</em></h1><p>Your details are used to render the page and are not stored. After preview, use Print → Save as PDF.</p></div>
+<form class="x-form" method="post" action="/resume-builder" style="max-width:780px"><input type="hidden" name="csrf_token" value="{{ csrf }}">
+<div class="row"><div><label for="name">Full name *</label><input id="name" name="name" required maxlength="80"></div><div><label for="email">Email</label><input id="email" name="email" type="email" maxlength="120"></div></div>
+<div class="row"><div><label for="phone">Phone</label><input id="phone" name="phone" maxlength="30"></div><div><label for="city">City</label><input id="city" name="city" maxlength="80"></div></div>
+<div><label for="objective">Objective (1–2 lines)</label><textarea id="objective" name="objective" rows="2" maxlength="500"></textarea></div>
+<div><label for="education">Education (one per line)</label><textarea id="education" name="education" rows="3" placeholder="B.Tech CSE, ABC College, 2024–2028&#10;Class 12, XYZ School, 92%"></textarea></div>
+<div><label for="skills">Skills (comma separated)</label><input id="skills" name="skills" placeholder="Python, Communication, Excel"></div>
+<div><label for="projects">Projects / internships (one per line)</label><textarea id="projects" name="projects" rows="3"></textarea></div>
+<div><label for="achievements">Achievements (one per line)</label><textarea id="achievements" name="achievements" rows="3"></textarea></div>
+<button class="btn btn-primary" style="justify-self:start">Preview resume ↗</button></form></div></section>{% endblock %}

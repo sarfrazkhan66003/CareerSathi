@@ -1,0 +1,18 @@
+<script id="nav-js">
+(function(){function init(){
+ // theme toggle
+ const tb=document.getElementById('themeBtn');
+ if(tb)tb.addEventListener('click',()=>{const d=document.documentElement,n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('cs_theme',n)}catch(e){}});
+ // navbar dropdowns (click to open, Esc / outside click to close, arrow keys)
+ const dds=[...document.querySelectorAll('.nav-dd')];
+ const closeAll=(except)=>dds.forEach(d=>{if(d!==except){d.classList.remove('open');const b=d.querySelector('.nav-dd-btn'),m=d.querySelector('.nav-menu');if(b)b.setAttribute('aria-expanded','false');if(m)m.hidden=true}});
+ dds.forEach(d=>{const b=d.querySelector('.nav-dd-btn'),m=d.querySelector('.nav-menu');if(!b||!m)return;
+  b.addEventListener('click',e=>{e.stopPropagation();const open=!d.classList.contains('open');closeAll(d);d.classList.toggle('open',open);b.setAttribute('aria-expanded',String(open));m.hidden=!open;});
+  b.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){e.preventDefault();if(m.hidden)b.click();const f=m.querySelector('a,button');if(f)f.focus()}});
+  m.addEventListener('keydown',e=>{const items=[...m.querySelectorAll('a,button')],i=items.indexOf(document.activeElement);
+   if(e.key==='ArrowDown'){e.preventDefault();(items[i+1]||items[0]).focus()}else if(e.key==='ArrowUp'){e.preventDefault();(items[i-1]||items[items.length-1]).focus()}else if(e.key==='Escape'){closeAll();b.focus()}});});
+ document.addEventListener('click',e=>{if(!e.target.closest('.nav-dd'))closeAll()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();})();
+</script>

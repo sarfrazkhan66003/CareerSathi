@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block title %}Scholarship finder{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><span class="overline">SCHOLARSHIP FINDER</span><h1>Find where to <em>apply.</em></h1><p>We point you to official portals. We do not list amounts or deadlines because they change every year. Never pay anyone for a "guaranteed" scholarship.</p></div>
+<form class="x-form x-card" method="get" style="max-width:760px;margin-bottom:24px"><div class="row"><div><label for="ct">Category *</label><select id="ct" name="category" required><option value="">Select</option>{% for c in cats %}<option {{ 'selected' if c==q.category }}>{{ c }}</option>{% endfor %}</select></div>
+<div><label for="lv">Level *</label><select id="lv" name="level" required><option value="">Select</option>{% for v,l in levels %}<option value="{{ v }}" {{ 'selected' if v==q.level }}>{{ l }}</option>{% endfor %}</select></div></div>
+<div class="row"><div><label for="in">Family income (optional)</label><select id="in" name="income"><option value="">Prefer not to say</option>{% for i in incomes %}<option {{ 'selected' if i==q.income }}>{{ i }}</option>{% endfor %}</select></div>
+<div><label for="stt">State (optional)</label><select id="stt" name="state"><option value="">Any</option>{% for s in regions %}<option {{ 'selected' if s==q.state }}>{{ s }}</option>{% endfor %}</select></div></div>
+<button class="btn btn-primary" style="justify-self:start">Show portals ↗</button></form>
+{% if searched %}<div class="x-grid two">{% for n,u,d in res %}<div class="x-card"><h3>{{ n }}</h3><p>{{ d }}</p><p style="margin-top:12px"><a class="text-link" href="{{ u }}" target="_blank" rel="noopener noreferrer">Open official site ↗</a></p></div>{% endfor %}</div>{% endif %}
+<p class="x-note">Eligibility, income limits and last dates differ by scheme and year. Confirm everything on the official portal.</p></div></section>{% endblock %}

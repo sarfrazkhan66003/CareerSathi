@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block title %}Feedback{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><span class="overline">FEEDBACK</span><h1>Help us get <em>better.</em></h1><p>Tell us what worked and what did not. First feedback earns bonus points.</p></div>
+<form class="x-form x-card" method="post" action="/feedback" style="max-width:640px"><input type="hidden" name="csrf_token" value="{{ csrf }}"><div><label for="rating">Overall rating</label><select id="rating" name="rating">{% for n in [5,4,3,2,1] %}<option value="{{ n }}">{{ n }} / 5</option>{% endfor %}</select></div>
+<div><label for="message">Your feedback *</label><textarea id="message" name="message" rows="5" required minlength="10" maxlength="1500"></textarea></div><button class="btn btn-primary" style="justify-self:start">Send feedback ↗</button></form></div></section>{% endblock %}

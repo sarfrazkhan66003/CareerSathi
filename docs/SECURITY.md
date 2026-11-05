@@ -1,0 +1,5 @@
+# Security
+CSRF token on all POST (header `X-CSRF` for the assistant JSON endpoint). Role checks via `must_login`. Input length-capped. Jinja autoescape on (no |safe on user data). Parent sees only students who shared a code; codes are random 8-char, regenerable. Leaderboard opt-in. No secrets in repo (.env.example). Rate-limit assistant per session (30 req/10 min). Known gaps (unchanged from v10): email verification, MFA, guardian consent flow, payment gateway.
+
+## v12 additions
+Email verification and one-hour single-use password reset tokens (stored hashed). Guardian consent for under-18 (tokenised email link). Login throttle (5 fails per email+IP, 30 per IP / 15 min) and optional Turnstile CAPTCHA. Razorpay payments are marked paid only after HMAC-SHA256 signature verification (client callback and webhook). AI assistant: server-side key, daily cap, crisis-safe instructions, no personal data beyond class context. Admin POSTs are written to an audit log. Slot/mentor links must be https. CSV import is admin-only and validated.

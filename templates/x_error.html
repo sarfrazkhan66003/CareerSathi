@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block title %}{{ heading }}{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container" style="max-width:640px;text-align:center">
+<div class="x-card" style="padding:40px 30px"><div style="font-size:3rem;line-height:1">{{ icon }}</div>
+<span class="overline" style="display:block;margin-top:14px">{{ code }}</span><h1 style="font-size:2rem;margin:6px 0 10px">{{ heading }}</h1>
+<p style="color:var(--muted);font-size:1.05rem">{{ message }}</p>
+<p style="margin-top:22px"><button type="button" class="btn btn-primary" onclick="if(history.length>1){history.back()}else{location.href='/'}">← Go back</button> <a class="btn btn-outline" href="/">Home</a>{% if code in (401, 403) and not user %} <a class="btn btn-dark" href="/login">Log in</a>{% endif %}</p></div></div></section>{% endblock %}

@@ -1,0 +1,2 @@
+{% extends 'base.html' %}{% block title %}Thank you{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><h1>{{ 'Thank you. Consent recorded.' if ok else 'Understood. Consent was declined.' }}</h1><p>{{ 'The student can now send enquiries and book sessions.' if ok else 'Some features stay locked for the student. You can change your decision by contacting us.' }}</p></div></div></section>{% endblock %}

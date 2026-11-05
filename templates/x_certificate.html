@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block title %}Certificate{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><p class="x-noprint"><button class="btn btn-dark btn-sm" data-print type="button">Print / Save as PDF</button></p>
+<div class="x-cert"><p style="letter-spacing:.2em">CAREERSATHI</p><h1>Certificate of Completion</h1><p>This is to certify that</p><div class="nm">{{ name }}</div><p>has completed all lessons of</p><h2>{{ title }}</h2><p>{{ today.strftime('%d %B %Y') }}</p><p class="x-hint" style="margin-top:24px">This is a self-paced learning record from CareerSathi. It is not an accredited qualification or a university credential.</p></div></div></section>{% endblock %}

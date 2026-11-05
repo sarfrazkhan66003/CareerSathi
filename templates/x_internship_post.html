@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block title %}Post an internship{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><span class="overline">FOR COMPANIES</span><h1>Post an <em>internship.</em></h1><p>Listings are reviewed by CareerSathi before going live. Internships for students must be safe, genuine and free of any fee.</p></div>
+<form class="x-form x-card" method="post" action="/internships/post" style="max-width:760px"><input type="hidden" name="csrf_token" value="{{ csrf }}">
+<div class="row"><div><label for="co">Company *</label><input id="co" name="company" required maxlength="150"></div><div><label for="cn">Contact name *</label><input id="cn" name="contact_name" required maxlength="130"></div></div>
+<div class="row"><div><label for="ce">Contact email *</label><input id="ce" name="contact_email" type="email" required maxlength="230"></div><div><label for="ti">Role title *</label><input id="ti" name="title" required minlength="4" maxlength="180"></div></div>
+<div><label for="de">Description *</label><textarea id="de" name="description" rows="5" required minlength="30" maxlength="3000"></textarea></div>
+<div class="row"><div><label for="lo">Location</label><input id="lo" name="location" maxlength="100" placeholder="City or Remote"></div><div><label for="st">Stipend</label><input id="st" name="stipend" maxlength="60" placeholder="e.g. ₹5,000 / month or Unpaid"></div></div>
+<div><label for="ab">Apply by</label><input id="ab" name="apply_by" type="date"></div><button class="btn btn-primary" style="justify-self:start">Submit for review ↗</button></form></div></section>{% endblock %}

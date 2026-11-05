@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block title %}Analytics{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><span class="overline">ADMIN</span><h1>Conversion <em>funnel.</em></h1><p><a class="text-link" href="/admin/hub">← Admin hub</a> · Last 30 days for visitors; other numbers are all-time.</p></div>
+<div class="x-card">{% for n,v,p in steps %}<div class="x-bar" style="grid-template-columns:260px 1fr 60px"><span>{{ n }}</span><div class="t"><i style="width:{{ p }}%"></i></div><b>{{ v }}</b></div>{% endfor %}</div>
+<div class="x-grid four" style="margin-top:18px">{% for k,v in [('Career Compass quizzes',extra.quizzes),('Assessments completed',extra.attempts),('Verified emails',extra.verified),('Guardian approvals pending',extra.minors_pending),('Emails logged',extra.outbox)] %}<div class="x-card"><div class="x-stat">{{ v }}</div><p>{{ k }}</p></div>{% endfor %}</div></div></section>{% endblock %}

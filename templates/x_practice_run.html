@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block title %}{{ title }}{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><span class="overline">PRACTICE</span><h1>{{ title }}</h1></div>
+<form method="post" action="/practice/{{ topic }}"><input type="hidden" name="csrf_token" value="{{ csrf }}">{% for qid,q,opts in qs %}<fieldset class="x-q"><legend><span class="x-qno">{{ loop.index }}.</span>{{ q }}</legend>{% for o in opts %}<label class="x-opt"><input type="radio" name="q_{{ qid }}" value="{{ loop.index0 }}"><span>{{ o }}</span></label>{% endfor %}</fieldset>{% endfor %}<button class="btn btn-primary btn-lg">{{ t('Submit answers') }} ↗</button></form></div></section>{% endblock %}

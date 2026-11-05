@@ -1,0 +1,35 @@
+<style id="nav-css">
+/* ===== v12.1 navbar: dropdown menus (click to open) ===== */
+.links{gap:4px}
+.links>a,.nav-dd-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 13px;border:0;border-radius:11px;background:none;font:700 13.5px var(--font);color:#3d3c52;cursor:pointer;white-space:nowrap}
+.links>a:hover,.nav-dd-btn:hover,.nav-dd.open>.nav-dd-btn{background:var(--lavender);color:var(--purple)}
+.nav-dd{position:relative}.nav-dd-btn svg{width:12px;height:12px;transition:transform .2s}.nav-dd.open>.nav-dd-btn svg{transform:rotate(180deg)}
+.nav-dd-btn:focus-visible,.nav-pill:focus-visible,.nav-icon:focus-visible,.nav-menu a:focus-visible,.nav-menu .item:focus-visible{outline:3px solid #b9aef0;outline-offset:2px}
+.nav-menu{position:absolute;top:calc(100% + 12px);left:0;min-width:290px;background:var(--white);border:1px solid #e7e5f0;border-radius:18px;padding:8px;box-shadow:0 28px 60px -24px rgba(37,38,56,.45);z-index:70;animation:ddIn .16s ease-out}
+.nav-menu[hidden]{display:none}.nav-menu.wide{min-width:540px;grid-template-columns:1fr 1fr;gap:2px}.nav-menu.wide:not([hidden]){display:grid}.nav-menu.right{left:auto;right:0;min-width:240px}
+.nav-menu a,.nav-menu .item{display:flex;flex-direction:column;gap:2px;width:100%;padding:10px 12px;border:0;border-radius:11px;background:none;color:var(--ink);text-align:left;font:inherit;cursor:pointer}
+.nav-menu a b,.nav-menu .item b{font-size:13.5px;font-weight:700;color:inherit}.nav-menu a small{font-size:12px;font-weight:500;color:var(--muted);line-height:1.35}
+.nav-menu a:hover,.nav-menu .item:hover{background:var(--lavender)}.nav-menu .item.danger b{color:#c2410c}.nav-menu form{margin:4px 0 0;padding-top:4px;border-top:1px solid #eeeaf8}
+.nav-menu-head{padding:8px 12px 10px;border-bottom:1px solid #eeeaf8;margin-bottom:4px}.nav-menu-head b{display:block;font-size:14px}.nav-menu-head small{color:var(--muted);font-size:12px}
+.nav-actions{gap:10px}.nav-pill{padding:7px 12px;border:1px solid #e0dcf3;border-radius:99px;font:700 12px var(--font);color:#3d3c52;background:var(--white)}.nav-pill:hover{border-color:var(--purple);color:var(--purple)}
+.nav-icon{display:inline-grid;place-items:center;width:36px;height:36px;border:1px solid #e0dcf3;border-radius:50%;background:var(--white);color:#3d3c52;cursor:pointer}.nav-icon:hover{border-color:var(--purple);color:var(--purple)}
+.nav-login{font:700 13px var(--font);color:#3d3c52;padding:8px 6px}.nav-login:hover{color:var(--purple)}
+.user-btn{padding:5px 10px 5px 5px;border:1px solid #e0dcf3;border-radius:99px;background:var(--white)}.user-btn .avatar{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--purple);color:#fff;font-weight:800;font-size:13px}.user-btn .uname{max-width:110px;overflow:hidden;text-overflow:ellipsis}
+@keyframes ddIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media(max-width:1100px){.user-btn .uname{display:none}.links>a,.nav-dd-btn{padding:9px 10px}}
+@media(max-width:800px){.links{max-height:calc(100vh - 120px);overflow:auto;gap:2px}.links>a,.nav-dd-btn{width:100%;justify-content:space-between;padding:13px 12px;font-size:15px}
+ .nav-menu,.nav-menu.wide,.nav-menu.wide:not([hidden]){position:static;display:block;min-width:0;box-shadow:none;border:0;border-left:3px solid #e0dcf3;border-radius:0;padding:0 0 6px 8px;margin:0 0 6px 12px;animation:none}
+ .nav-menu.right{position:absolute;right:8px;left:auto;top:62px;min-width:230px;background:var(--white);border:1px solid #e7e5f0;border-radius:16px;box-shadow:0 20px 40px -18px rgba(0,0,0,.35);padding:8px;margin:0}
+ .nav-menu[hidden]{display:none!important}.nav-pill{padding:6px 9px}.nav-actions{gap:6px}.nav-login{display:inline}}
+.links>a.only-mobile{display:none}
+@media(max-width:560px){
+ .brand-logo img{width:128px}.brand-tagline{font-size:9px}.nav{gap:6px}
+ .nav-login,.nav-pill{display:none}.links>a.only-mobile{display:flex}.nav-actions{gap:6px}.nav-actions .btn-sm{padding:9px 12px;font-size:12.5px}.nav-actions .btn-sm span{display:none}
+}
+
+/* navbar: always loaded with the page (not from a cached file) */
+.nav-dd-btn svg{width:12px;height:12px;flex:none}
+.nav-dd-btn,.nav-icon{font-family:inherit}
+.nav-menu{background:#fff}[data-theme=dark] .nav-menu{background:#1f2233;border-color:#33374d}[data-theme=dark] .nav-menu a,[data-theme=dark] .nav-menu .item,[data-theme=dark] .nav-menu-head b{color:#eceaf7}[data-theme=dark] .nav-menu a:hover,[data-theme=dark] .nav-menu .item:hover{background:#2c3050}
+.skip-link{position:absolute;left:-999px;top:8px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:10px;z-index:100}.skip-link:focus{left:12px}
+</style>

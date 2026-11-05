@@ -1,0 +1,12 @@
+{% extends 'base.html' %}{% block title %}{{ r.title }}{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><a class="text-link" href="/roadmaps">← Career roadmaps</a>
+<div class="x-head" style="margin-top:14px"><span class="overline">STREAM ROADMAP</span><h1>{{ r.title }}</h1><p>{{ r.tagline }}</p></div>
+{% if need_prep %}<div class="x-alert" role="alert"><b>Preparation needed.</b> Your latest assessment score is {{ si.overall }}%, below {{ threshold }}%. You can still aim for this stream, but you must prepare seriously: follow the catch-up plan below and keep Commerce or Arts as a backup.</div>{% endif %}
+<div class="x-grid two"><div class="x-card"><h3>Subjects</h3><p>{{ r.subjects }}</p><h3 style="margin-top:14px">Who it fits</h3><p>{{ r.fits }}</p></div>
+<div class="x-card"><h3>Your readiness</h3>{% if keys %}{% for k,label,v in keys %}<div class="x-bar"><span>{{ label }}</span><div class="t"><i style="width:{{ v }}%"></i></div><b>{{ v }}%</b></div>{% endfor %}{% if weak %}<ul style="margin-top:10px">{% for label,tip in weak %}<li><b>{{ label }}:</b> {{ tip }}</li>{% endfor %}</ul>{% endif %}
+{% else %}<p>Take the CareerSathi assessment to see how ready you are for this stream.</p><p style="margin-top:10px"><a class="btn btn-soft btn-sm" href="/assessments">Take the assessment ↗</a></p>{% endif %}</div></div>
+<div class="x-grid two" style="margin-top:18px"><div class="x-card"><h3>Year-by-year roadmap</h3><ol class="x-steps">{% for s,t2 in r.steps %}<li><b>{{ s }}</b>{{ t2 }}</li>{% endfor %}</ol></div>
+<div class="x-card"><h3>{% if need_prep %}12-week catch-up plan{% else %}How to stay ready{% endif %}</h3><ol class="x-steps">{% for s,t2 in catchup %}<li><b>{{ s }}</b>{{ t2 }}</li>{% endfor %}</ol></div></div>
+<div class="x-card" style="margin-top:18px"><h3>Careers this stream can lead to</h3><p>{% for slug,name in r.careers %}<a class="x-chip" href="/roadmaps/{{ slug }}">{{ name }} ↗</a>{% endfor %}</p></div>
+<div class="x-card" style="margin-top:18px"><h3>Compare other streams</h3><p>{% for c,o in others %}{% if c!=code %}<a class="x-chip" href="/stream-roadmap/{{ c }}">{{ o.title.split(':')[0] }}</a>{% endif %}{% endfor %}</p></div>
+<p class="x-note">Rules, exams and eligibility change. Confirm everything on the official websites before deciding. <a class="text-link" href="/enquiry">Send an enquiry ↗</a></p></div></section>{% endblock %}

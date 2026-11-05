@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block title %}Leaderboard{% endblock %}{% block content %}
+<section class="x-wrap"><div class="container"><div class="x-head"><span class="overline">LEADERBOARD</span><h1>Top <em>learners.</em></h1><p>Only students who opted in appear, using first name and last initial.</p></div>
+{% if board %}{% for n,p,b in board %}<div class="x-rank"><b class="n">{{ loop.index }}</b><div><b>{{ n }}</b><br><small style="color:var(--muted)">{{ b }}</small></div><span class="x-score">{{ p }}</span></div>{% endfor %}
+{% else %}<div class="x-card"><h3>Be the first on the board</h3><p>Nobody has opted in yet. Take the <a class="text-link" href="/career-quiz">quiz</a>, then switch on the leaderboard in <a class="text-link" href="/rewards">Rewards</a>.</p></div>{% endif %}</div></section>{% endblock %}
